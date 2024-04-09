@@ -1,62 +1,41 @@
 folder('Tools') {
     description('Folder for miscellaneous tools.')
 }
-
-job('Tools/clone-repository') {
-    description('Clones a Git repository to the workspace.')
+freeStyleJob('Tools/clone-repository') {
     parameters {
-        stringParam('GIT_REPOSITORY_URL', '', 'Git URL of the repository to clone')
-    }
-    scm {
-        
-    }
-    triggers {
-        
+        stringParam('GIT_REPOSITORY_URL', null, 'Git URL of the repository to clone')
     }
     steps {
-        
-        shell('''
-          echo Cloning the repository from $GIT_REPOSITORY_URL
-          git clone $GIT_REPOSITORY_URL .
-        ''')
+        shell('git clone ${GIT_REPOSITORY_URL}')
     }
     wrappers {
-        preBuildCleanup() 
+        preBuildCleanup()
     }
 }
-
-job('Tools/SEED') {
-    description('SEED job to generate jobs from specified parameters.')
+freeStyleJob('Tools/SEED') {
     parameters {
-        stringParam('GITHUB_NAME', '', 'GitHub repository owner/repo_name')
-        stringParam('DISPLAY_NAME', '', 'Display name for the job')
+        stringParam('GITHUB_NAME', null, 'GitHub repository owner/repo_name (e.g.: "EpitechIT31000/chocolatine")')
+        stringParam('DISPLAY_NAME', null, 'Display name for the job')
     }
     steps {
-        /
         dsl {
-            external('path/to/your/job_dsl.groovy') 
-        }
+            text('''job("$DISPLAY_NAME") {
+    wrappers {
+        preBuildCleanup()
     }
-    
-}
-
-def generateJob = { String displayName, String githubName ->
-    job("${displayName}") {
-        description("Job generated from SEED for ${githubName}")
-        scm {
-            git("https://github.com/${githubName}.git")
-        }
-        triggers {
-            cron('H/1 * * * *') 
-        }
-        steps {
-            shell('make fclean')
-            shell('make')
-            shell('make tests_run')
-            shell('make clean')
-        }
-        wrappers {
-            preBuildCleanup() 
+    scm {
+        github("$GITHUB_NAME")
+    }
+    triggers {
+        scm('* * * * *')
+    }
+    steps {
+        shell('make fclean')
+        shell('make')
+        shell('make tests_run')
+        shell('make clean')
+    }
+}'''.stripIndent())
         }
     }
 }
