@@ -1,8 +1,3 @@
-MY_MARVIN Project 
-
-
-Overview
-
 The MY_MARVIN project is designed to harness the power of Jenkins, an Open Source automation platform, to automate tasks ranging from simple periodic cleanups to full-scale production deployments. At the heart of this project lies the Continuous Integration & Continuous Delivery (CI/CD) pipeline, pivotal for modern DevOps practices.
 
 This project is evaluated entirely through Automated Tests, emphasizing the Configuration as Code (CaC) principle via Jenkins Configuration as Code (JCasC) and the Job Domain Specific Language (DSL) for creating jobs within Jenkins.
