@@ -1,6 +1,6 @@
-# MY_MARVIN — Jenkins Configuration as Code CI/CD Instance
+# MY MARVIN — Jenkins Configuration as Code CI/CD Instance
 
-MY_MARVIN is a Jenkins-based automation project built around **Configuration as Code** and **Job DSL**. It showcases a clean, testable Jenkins setup that can automate anything from small recurring maintenance tasks to full CI/CD production pipelines.
+MY MARVIN is a Jenkins-based automation project built around **Configuration as Code** and **Job DSL**. It showcases a clean, testable Jenkins setup that can automate anything from small recurring maintenance tasks to full CI/CD production pipelines.
 
 This repository is **evaluated entirely through automated tests**, so the Jenkins instance must be reproducible and deterministic.
 
